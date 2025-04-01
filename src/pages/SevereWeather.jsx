@@ -24,6 +24,31 @@ export default function SevereWeather() {
     'National (Large)': 'https://radar.weather.gov/region/national/standard',
     'National': 'https://radar.weather.gov/region/national/standard',
   };
+  const [day1Summary, setDay1Summary] = useState('');
+
+  useEffect(() => {
+    fetch('https://www.spc.noaa.gov/products/outlook/day1otlk.txt')
+      .then(res => res.text())
+      .then(text => {
+        const start = text.indexOf('Day 1 Convective Outlook');
+        const summaryStart = text.indexOf('...SUMMARY...', start);
+  
+        // Extract the content after the summary tag
+        const afterSummary = text.slice(summaryStart + 11); // skip "...SUMMARY..."
+        const nextSectionIndex = afterSummary.search(/\n\.\.\.[A-Z]/); // find start of next section
+        const summaryBody = afterSummary.slice(0, nextSectionIndex).trim();
+  
+        const header = text.slice(start, summaryStart).trim();
+        const fullSummary = `${header}\n\n...SUMMARY...\n${summaryBody}`;
+  
+        setDay1Summary(fullSummary);
+      })
+      .catch(err => console.error('Error fetching SPC outlook text:', err));
+  }, []);
+  
+  
+  
+
 
   useEffect(() => {
     fetch('https://api.weather.gov/alerts/active')
@@ -45,6 +70,26 @@ export default function SevereWeather() {
 
   return (
     <div className="w-full px-4 pb-8">
+            {/* SPC Day 1 Summary */}
+    <div className="bg-orange-200 border border-orange-600 text-black px-6 py-4 rounded-md shadow-md max-w-8xl mx-auto text-center">
+
+    <h2 className="text-lg font-bold text-orange-700 mb-2">⚠️ Today's Severe Weather Summary</h2>
+    <div className="text-left text-base leading-relaxed space-y-4">
+  {day1Summary.split('\n\n').map((para, i) => (
+    <p key={i}>{para.trim()}</p>
+  ))}
+</div>
+
+    <a
+        href="https://www.spc.noaa.gov/products/outlook/day1otlk.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-700 underline block mt-2"
+    >
+        Full SPC Outlook →
+    </a>
+    </div>
+
       <h1 className="text-2xl font-bold mb-4">Severe Weather Map</h1>
 
       {/* Map and Radar Section */}
