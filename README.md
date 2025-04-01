@@ -1,12 +1,22 @@
-# React + Vite
+#  Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dynamic, interactive weather dashboard that shows current conditions, radar maps, and forecasts using real-time weather APIs.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  Search by city and state
+-  Current weather conditions (temp, wind, feels like, etc.)
+-  Hourly forecast (12 hours)
+-  7-period daily forecast with sunrise/sunset times
+-  Live weather alerts from NWS
+-  RainViewer animated radar map
+-  Windy.com radar with dynamic location
+-  NOAA regional radar GIFs (Atlanta & Southeast)
 
-## Expanding the ESLint configuration
+##  Built With
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React + Tailwind CSS
+- National Weather Service API (weather.gov)
+- SunriseSunset.io API
+- OpenStreetMap Nominatim for geocoding
+- RainViewer & Windy embedded radar maps
